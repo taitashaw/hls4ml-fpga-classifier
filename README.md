@@ -258,6 +258,13 @@ setting `LIBGL_ALWAYS_SOFTWARE=1` to force software OpenGL. Batch-mode Tcl, used
 every other step here including `regenerate_bd_layout` and the `mlp_classifier_0`
 rename, is unaffected either way.
 
+![Simplified block design diagram, orthogonal routing](img/block_design.svg)
+
+The real screenshot above is dense with small text; this is a simplified companion
+diagram of the same design for a faster read. Two low-value nets are called out in its
+own caption instead of drawn (the Processor System Reset's fan-out to every block, and
+the interrupt concat feeding the PS's IRQ input) to keep the drawing legible.
+
 ## Repository layout
 
 ```
@@ -278,6 +285,7 @@ hls4ml-fpga-classifier/
 |-- my-hls-test/                  # hls4ml-generated Vitis HLS project (real build)
 |-- vivado_prj/                   # real Vivado project + validated block design
 |-- img/
+|   |-- block_design.svg          # simplified companion diagram, orthogonal routing
 |   |-- block_design_screenshot.png  # native Vivado GUI screenshot (used in the README)
 |   `-- xsim_waveform_screenshot.png # native XSim GUI screenshot (used in the README)
 |-- config_final.json
