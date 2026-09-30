@@ -1,0 +1,205 @@
+
+
+================================================================
+== Vitis HLS Report for 'relu_array_ap_fixed_32u_array_ap_fixed_16_6_5_3_0_32u_relu_config5_s'
+================================================================
+* Date:           Tue Sep 29 13:25:36 2026
+
+* Version:        2025.2 (Build 6295257 on Nov 14 2025)
+* Project:        myproject_prj
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: zynquplus
+* Target device:  xczu7ev-ffvc1156-2-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  |  10.00 ns|  4.824 ns|     2.70 ns|
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |        0|        0|      0 ns|      0 ns|    0|    0|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+------+--------+--------+-----+
+|       Name      | BRAM_18K|  DSP |   FF   |   LUT  | URAM|
++-----------------+---------+------+--------+--------+-----+
+|DSP              |        -|     -|       -|       -|    -|
+|Expression       |        -|     -|       0|    1218|    -|
+|FIFO             |        -|     -|       -|       -|    -|
+|Instance         |        -|     -|       -|       -|    -|
+|Memory           |        -|     -|       -|       -|    -|
+|Multiplexer      |        -|     -|       0|      36|    -|
+|Register         |        -|     -|       3|       -|    -|
++-----------------+---------+------+--------+--------+-----+
+|Total            |        0|     0|       3|    1254|    0|
++-----------------+---------+------+--------+--------+-----+
+|Available        |      624|  1728|  460800|  230400|   96|
++-----------------+---------+------+--------+--------+-----+
+|Utilization (%)  |        0|     0|      ~0|      ~0|    0|
++-----------------+---------+------+--------+--------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +----------------------------+----------+----+---+----+------------+------------+
+    |        Variable Name       | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +----------------------------+----------+----+---+----+------------+------------+
+    |icmp_ln51_100_fu_963_p2     |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_101_fu_981_p2     |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_102_fu_999_p2     |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_103_fu_1017_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_104_fu_1035_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_105_fu_1053_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_106_fu_1071_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_107_fu_1089_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_108_fu_1107_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_109_fu_1125_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_110_fu_1143_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_111_fu_1161_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_112_fu_1179_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_113_fu_1197_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_114_fu_1215_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_115_fu_1233_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_116_fu_1251_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_117_fu_1269_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_118_fu_1287_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_119_fu_1305_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_120_fu_1323_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_121_fu_1341_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_122_fu_1359_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_123_fu_1377_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_124_fu_1395_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_125_fu_1413_p2    |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_95_fu_873_p2      |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_96_fu_891_p2      |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_97_fu_909_p2      |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_98_fu_927_p2      |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_99_fu_945_p2      |      icmp|   0|  0|  23|          16|           1|
+    |icmp_ln51_fu_855_p2         |      icmp|   0|  0|  23|          16|           1|
+    |ap_block_state1             |        or|   0|  0|   2|           1|           1|
+    |select_ln51_100_fu_969_p3   |    select|   0|  0|  15|           1|          15|
+    |select_ln51_101_fu_987_p3   |    select|   0|  0|  15|           1|          15|
+    |select_ln51_102_fu_1005_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_103_fu_1023_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_104_fu_1041_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_105_fu_1059_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_106_fu_1077_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_107_fu_1095_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_108_fu_1113_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_109_fu_1131_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_110_fu_1149_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_111_fu_1167_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_112_fu_1185_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_113_fu_1203_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_114_fu_1221_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_115_fu_1239_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_116_fu_1257_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_117_fu_1275_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_118_fu_1293_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_119_fu_1311_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_120_fu_1329_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_121_fu_1347_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_122_fu_1365_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_123_fu_1383_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_124_fu_1401_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_125_fu_1419_p3  |    select|   0|  0|  15|           1|          15|
+    |select_ln51_95_fu_879_p3    |    select|   0|  0|  15|           1|          15|
+    |select_ln51_96_fu_897_p3    |    select|   0|  0|  15|           1|          15|
+    |select_ln51_97_fu_915_p3    |    select|   0|  0|  15|           1|          15|
+    |select_ln51_98_fu_933_p3    |    select|   0|  0|  15|           1|          15|
+    |select_ln51_99_fu_951_p3    |    select|   0|  0|  15|           1|          15|
+    |select_ln51_fu_861_p3       |    select|   0|  0|  15|           1|          15|
+    +----------------------------+----------+----+---+----+------------+------------+
+    |Total                       |          |   0|  0|1218|         545|         513|
+    +----------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +------------------+----+-----------+-----+-----------+
+    |       Name       | LUT| Input Size| Bits| Total Bits|
+    +------------------+----+-----------+-----+-----------+
+    |ap_done           |   9|          2|    1|          2|
+    |layer4_out_blk_n  |   9|          2|    1|          2|
+    |layer5_out_blk_n  |   9|          2|    1|          2|
+    |real_start        |   9|          2|    1|          2|
+    +------------------+----+-----------+-----+-----------+
+    |Total             |  36|          8|    4|          8|
+    +------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +----------------+---+----+-----+-----------+
+    |      Name      | FF| LUT| Bits| Const Bits|
+    +----------------+---+----+-----+-----------+
+    |ap_CS_fsm       |  1|   0|    1|          0|
+    |ap_done_reg     |  1|   0|    1|          0|
+    |start_once_reg  |  1|   0|    1|          0|
+    +----------------+---+----+-----+-----------+
+    |Total           |  3|   0|    3|          0|
+    +----------------+---+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++---------------------------+-----+-----+------------+------------------------------------------------------------------------+--------------+
+|         RTL Ports         | Dir | Bits|  Protocol  |                              Source Object                             |    C Type    |
++---------------------------+-----+-----+------------+------------------------------------------------------------------------+--------------+
+|ap_clk                     |   in|    1|  ap_ctrl_hs|  relu<array<ap_fixed,32u>,array<ap_fixed<16,6,5,3,0>,32u>,relu_config5>|  return value|
+|ap_rst                     |   in|    1|  ap_ctrl_hs|  relu<array<ap_fixed,32u>,array<ap_fixed<16,6,5,3,0>,32u>,relu_config5>|  return value|
+|ap_start                   |   in|    1|  ap_ctrl_hs|  relu<array<ap_fixed,32u>,array<ap_fixed<16,6,5,3,0>,32u>,relu_config5>|  return value|
+|start_full_n               |   in|    1|  ap_ctrl_hs|  relu<array<ap_fixed,32u>,array<ap_fixed<16,6,5,3,0>,32u>,relu_config5>|  return value|
+|ap_done                    |  out|    1|  ap_ctrl_hs|  relu<array<ap_fixed,32u>,array<ap_fixed<16,6,5,3,0>,32u>,relu_config5>|  return value|
+|ap_continue                |   in|    1|  ap_ctrl_hs|  relu<array<ap_fixed,32u>,array<ap_fixed<16,6,5,3,0>,32u>,relu_config5>|  return value|
+|ap_idle                    |  out|    1|  ap_ctrl_hs|  relu<array<ap_fixed,32u>,array<ap_fixed<16,6,5,3,0>,32u>,relu_config5>|  return value|
+|ap_ready                   |  out|    1|  ap_ctrl_hs|  relu<array<ap_fixed,32u>,array<ap_fixed<16,6,5,3,0>,32u>,relu_config5>|  return value|
+|start_out                  |  out|    1|  ap_ctrl_hs|  relu<array<ap_fixed,32u>,array<ap_fixed<16,6,5,3,0>,32u>,relu_config5>|  return value|
+|start_write                |  out|    1|  ap_ctrl_hs|  relu<array<ap_fixed,32u>,array<ap_fixed<16,6,5,3,0>,32u>,relu_config5>|  return value|
+|layer4_out_dout            |   in|  512|     ap_fifo|                                                              layer4_out|       pointer|
+|layer4_out_empty_n         |   in|    1|     ap_fifo|                                                              layer4_out|       pointer|
+|layer4_out_read            |  out|    1|     ap_fifo|                                                              layer4_out|       pointer|
+|layer4_out_num_data_valid  |   in|    2|     ap_fifo|                                                              layer4_out|       pointer|
+|layer4_out_fifo_cap        |   in|    2|     ap_fifo|                                                              layer4_out|       pointer|
+|layer5_out_din             |  out|  512|     ap_fifo|                                                              layer5_out|       pointer|
+|layer5_out_full_n          |   in|    1|     ap_fifo|                                                              layer5_out|       pointer|
+|layer5_out_write           |  out|    1|     ap_fifo|                                                              layer5_out|       pointer|
+|layer5_out_num_data_valid  |   in|    2|     ap_fifo|                                                              layer5_out|       pointer|
+|layer5_out_fifo_cap        |   in|    2|     ap_fifo|                                                              layer5_out|       pointer|
++---------------------------+-----+-----+------------+------------------------------------------------------------------------+--------------+
+

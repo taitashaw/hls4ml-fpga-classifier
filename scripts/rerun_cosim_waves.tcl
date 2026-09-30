@@ -1,0 +1,12 @@
+add_wave -radix hex /apatb_myproject_top/AESL_inst_myproject/input_1_TDATA
+add_wave /apatb_myproject_top/AESL_inst_myproject/input_1_TVALID
+add_wave /apatb_myproject_top/AESL_inst_myproject/input_1_TREADY
+add_wave -radix hex /apatb_myproject_top/AESL_inst_myproject/layer9_out_TDATA
+add_wave /apatb_myproject_top/AESL_inst_myproject/layer9_out_TVALID
+add_wave /apatb_myproject_top/AESL_inst_myproject/layer9_out_TREADY
+add_wave /apatb_myproject_top/AESL_inst_myproject/ap_start
+add_wave /apatb_myproject_top/AESL_inst_myproject/ap_done
+add_wave /apatb_myproject_top/AESL_inst_myproject/ap_idle
+add_wave /apatb_myproject_top/AESL_inst_myproject/ap_ready
+add_wave /apatb_myproject_top/AESL_inst_myproject/ap_clk
+run all

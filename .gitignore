@@ -1,0 +1,22 @@
+# Vivado / Vitis / XSim auto-generated noise (local paths, machine-specific, regenerable)
+*.jou
+*.log
+*.backup.jou
+*.backup.log
+*.str
+.Xil/
+webtalk*.log
+*.wdb
+*.pb
+
+# Unrelated tool artifact that reappears in the working directory
+ruvector.db
+.claude-flow/
+
+# Vitis HLS internal build database / cosim scratch (regenerable, carries local build paths)
+.autopilot/
+wrapc/
+wrapc_pc/
+autowrap/
+run_ippack.tcl
+xsim.dir/

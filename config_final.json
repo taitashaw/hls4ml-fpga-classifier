@@ -1,0 +1,25 @@
+{
+  "OutputDir": "my-hls-test",
+  "ProjectName": "myproject",
+  "Backend": "Vitis",
+  "Version": "1.0.0",
+  "Part": "xczu7ev-ffvc1156-2-e",
+  "ClockPeriod": 10,
+  "ClockUncertainty": "27%",
+  "IOType": "io_stream",
+  "HLSConfig": {
+    "Model": {
+      "Precision": "ap_fixed<16,6>",
+      "ReuseFactor": 1
+    }
+  },
+  "WriterConfig": {
+    "Namespace": null,
+    "WriteWeightsTxt": true,
+    "WriteTar": false,
+    "TBOutputStream": "both",
+    "WriteEmulationConstants": false
+  },
+  "KerasJson": "KERAS_3layer.json",
+  "KerasH5": "KERAS_3layer_weights.h5"
+}
