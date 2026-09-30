@@ -271,16 +271,14 @@ hls4ml-fpga-classifier/
 |   |-- check_ps_props.tcl        # live GP-property to HP/HPM pin mapping
 |   |-- 03_block_design.tcl       # Vivado IP Integrator build
 |   |-- capture_vcd.tcl           # VCD probe (superseded by the myproject.tcl edit)
-|   |-- vcd_to_svg.py             # real VCD to img/xsim_waveform.svg
+|   |-- vcd_to_svg.py             # real VCD to SVG diagram, superseded by the GUI screenshot
 |   |-- rename_and_show_bd.tcl    # renames myproject_0 -> mlp_classifier_0, re-saves
 |   |-- gui_show_bd.tcl           # GUI-mode open_project + open_bd_design, for screenshots
 |   `-- rerun_cosim_waves.tcl     # add_wave (real I/O + ap_ctrl_hs) + run all, for XSim GUI
 |-- my-hls-test/                  # hls4ml-generated Vitis HLS project (real build)
 |-- vivado_prj/                   # real Vivado project + validated block design
 |-- img/
-|   |-- block_design.svg          # topology diagram, drawn from the real .bd file
 |   |-- block_design_screenshot.png  # native Vivado GUI screenshot (used in the README)
-|   |-- xsim_waveform.svg         # waveform diagram, drawn from a real VCD
 |   `-- xsim_waveform_screenshot.png # native XSim GUI screenshot (used in the README)
 |-- config_final.json
 |-- KERAS_3layer.json / .h5       # real downloaded model + weights
