@@ -128,65 +128,7 @@ physically implementable past synthesis is unverified, not confirmed either way.
 standard hls4ml fix is to sweep `ReuseFactor` up (2, 4, 8...) to trade latency for DSP
 reuse; that sweep was not run in this pass, see Next steps.
 
-## 4. Cosimulation
-
-Real interface, from the actual generated `firmware/myproject.cpp` and the
-`myproject_csynth.rpt` "Interface" table (checked, not assumed from the
-`#pragma HLS INTERFACE axis` line alone):
-
-```cpp
-#pragma HLS INTERFACE axis port=input_1,layer9_out
-#pragma HLS DATAFLOW
-```
-
-| Port | Dir | Bits | Protocol |
-|---|---|---|---|
-| `input_1_TDATA` | in | 256 (16x `ap_fixed<16,6>`, one packed beat) | axis |
-| `layer9_out_TDATA` | out | 80 (5x `ap_fixed<16,6>`, one packed beat) | axis |
-| `ap_clk`/`ap_rst_n`/`ap_start`(in)/`ap_done`,`ap_ready`,`ap_idle`(out) | (control) | 1 each | **ap_ctrl_hs** |
-
-The pragma only sets the two data ports' protocol. The block-level control defaulted
-to `ap_ctrl_hs` handshake wires, not the zero-control-signal core the pragma alone
-suggests. This directly shaped the block design in step 5, since `ap_start` needs
-tying off.
-
-**First cosim run** used hls4ml's built-in default (no `tb_input_features.dat` written,
-since this pass used `csim=False`), so the C++ testbench fell back to a fixed default
-input and all 5 default iterations printed the identical output. It was a real
-"Verilog: Pass" result, but not a useful demonstration of the datapath. **Re-run with
-real varied data:** wrote 8 real samples from the actual `x_test`/`y_keras` arrays into
-`tb_data/tb_input_features.dat`/`tb_output_predictions.dat` in the exact format
-`myproject_test.cpp` reads, then re-ran cosim standalone (`synth=False, cosim=True`,
-reusing the already-synthesized RTL):
-
-| Sample | Keras float | RTL cosim (quantized) |
-|---|---|---|
-| 0 | `[0.0238, 0.8108, 0.0216, 0.1433, 0.0005]` | `[0.0254, 0.7998, 0.0225, 0.1514, 0.0000]` |
-
-`Verilog: Pass` again, `C/RTL SIMULATION COMPLETED IN 0h1m44s`.
-
-![Real XSim cosimulation waveform, native GUI screenshot](img/xsim_waveform_screenshot.png)
-
-Native XSim GUI screenshot, taken by hand on the real running simulator, not a
-reconstruction: opened `myproject`'s cosim snapshot in `xsim --gui`, added the DUT's
-real I/O and `ap_ctrl_hs` signals plus the auto-generated `apatb_myproject_top`
-testbench scaffolding (the `AESL_*` wrapper internals and the `svr_if` AXI-Stream
-protocol-checker mirrors bound to the same real `input_1`/`layer9_out` data), then
-`restart` followed by `run all` to get a view properly scaled to the actual ~915 ns of
-activity rather than a fixed run duration. All 8 transactions show genuinely different
-`layer9_out_TDATA` values, and `ap_done` pulses once per transaction, 7 cycles apart,
-matching the real interval from the synthesis report.
-
-The same real signal transitions were separately captured to a VCD (`myproject_real.vcd`,
-297 value changes, 698 lines) by editing the tool's own generated `myproject.tcl` wave
-script to add `open_vcd`/`log_vcd [get_objects ...]`/`close_vcd` around its `run all`
-call, using `get_objects`, not `get_waves`, which returns wave-config proxy objects that
-`log_vcd` silently rejects. That edit does not survive a fresh cosim run, since
-`vitis_hls` regenerates `myproject.tcl` from its own template every time, so it was
-reapplied immediately after the real testvector files were written and invoked directly
-via `sh run_xsim.sh`, reusing the real stimulus rather than re-deriving it.
-
-## 5. Vivado block design
+## 4. Vivado block design
 
 Zynq UltraScale+ PS (ZCU104 board preset) plus AXI DMA plus the exported `myproject`
 IP (block design instance later renamed `mlp_classifier_0` to name it by function; it
@@ -265,6 +207,64 @@ diagram of the same design for a faster read. Two low-value nets are called out 
 own caption instead of drawn (the Processor System Reset's fan-out to every block, and
 the interrupt concat feeding the PS's IRQ input) to keep the drawing legible.
 
+## 5. Cosimulation
+
+Real interface, from the actual generated `firmware/myproject.cpp` and the
+`myproject_csynth.rpt` "Interface" table (checked, not assumed from the
+`#pragma HLS INTERFACE axis` line alone):
+
+```cpp
+#pragma HLS INTERFACE axis port=input_1,layer9_out
+#pragma HLS DATAFLOW
+```
+
+| Port | Dir | Bits | Protocol |
+|---|---|---|---|
+| `input_1_TDATA` | in | 256 (16x `ap_fixed<16,6>`, one packed beat) | axis |
+| `layer9_out_TDATA` | out | 80 (5x `ap_fixed<16,6>`, one packed beat) | axis |
+| `ap_clk`/`ap_rst_n`/`ap_start`(in)/`ap_done`,`ap_ready`,`ap_idle`(out) | (control) | 1 each | **ap_ctrl_hs** |
+
+The pragma only sets the two data ports' protocol. The block-level control defaulted
+to `ap_ctrl_hs` handshake wires, not the zero-control-signal core the pragma alone
+suggests. This is exactly why the block design in step 4 above needed to tie `ap_start`
+off with a `Constant` block instead of leaving it unconnected.
+
+**First cosim run** used hls4ml's built-in default (no `tb_input_features.dat` written,
+since this pass used `csim=False`), so the C++ testbench fell back to a fixed default
+input and all 5 default iterations printed the identical output. It was a real
+"Verilog: Pass" result, but not a useful demonstration of the datapath. **Re-run with
+real varied data:** wrote 8 real samples from the actual `x_test`/`y_keras` arrays into
+`tb_data/tb_input_features.dat`/`tb_output_predictions.dat` in the exact format
+`myproject_test.cpp` reads, then re-ran cosim standalone (`synth=False, cosim=True`,
+reusing the already-synthesized RTL):
+
+| Sample | Keras float | RTL cosim (quantized) |
+|---|---|---|
+| 0 | `[0.0238, 0.8108, 0.0216, 0.1433, 0.0005]` | `[0.0254, 0.7998, 0.0225, 0.1514, 0.0000]` |
+
+`Verilog: Pass` again, `C/RTL SIMULATION COMPLETED IN 0h1m44s`.
+
+![Real XSim cosimulation waveform, native GUI screenshot](img/xsim_waveform_screenshot.png)
+
+Native XSim GUI screenshot, taken by hand on the real running simulator, not a
+reconstruction: opened `myproject`'s cosim snapshot in `xsim --gui`, added the DUT's
+real I/O and `ap_ctrl_hs` signals plus the auto-generated `apatb_myproject_top`
+testbench scaffolding (the `AESL_*` wrapper internals and the `svr_if` AXI-Stream
+protocol-checker mirrors bound to the same real `input_1`/`layer9_out` data), then
+`restart` followed by `run all` to get a view properly scaled to the actual ~915 ns of
+activity rather than a fixed run duration. All 8 transactions show genuinely different
+`layer9_out_TDATA` values, and `ap_done` pulses once per transaction, 7 cycles apart,
+matching the real interval from the synthesis report.
+
+The same real signal transitions were separately captured to a VCD (`myproject_real.vcd`,
+297 value changes, 698 lines) by editing the tool's own generated `myproject.tcl` wave
+script to add `open_vcd`/`log_vcd [get_objects ...]`/`close_vcd` around its `run all`
+call, using `get_objects`, not `get_waves`, which returns wave-config proxy objects that
+`log_vcd` silently rejects. That edit does not survive a fresh cosim run, since
+`vitis_hls` regenerates `myproject.tcl` from its own template every time, so it was
+reapplied immediately after the real testvector files were written and invoked directly
+via `sh run_xsim.sh`, reusing the real stimulus rather than re-deriving it.
+
 ## Repository layout
 
 ```
@@ -315,7 +315,7 @@ hls4ml-fpga-classifier/
 - The block design was validated and its wrapper generated, but never implemented,
   never given a bitstream, and never programmed onto physical ZCU104 hardware.
 - `ps8_0_axi_periph` is a real, Xilinx-discontinued `axi_interconnect:2.1`, auto-inserted
-  by board automation rather than deliberately chosen (see step 5). It works, but a
+  by board automation rather than deliberately chosen (see step 4). It works, but a
   from-scratch design today would more likely get a SmartConnect there instead.
 
 ## Next steps
