@@ -1,6 +1,6 @@
 <svg width="680" height="420" viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" role="img">
 <title>ZCU104 block design, simplified</title>
-<desc>Simplified block diagram of the real Vivado design: a Zynq UltraScale+ processing system connects through an AXI Interconnect and an AXI SmartConnect to an AXI DMA, which streams data to and from the mlp_classifier_0 HLS IP through an AXI4-Stream width converter.</desc>
+<desc>Simplified block diagram of the real Vivado design: a Zynq UltraScale+ processing system connects through an AXI Interconnect and two separate AXI SmartConnect instances to an AXI DMA, which streams data to and from the mlp_classifier_0 HLS IP through an AXI4-Stream width converter.</desc>
 <defs>
 <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
 <path d="M2 1L8 5L2 9" fill="none" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -18,52 +18,66 @@ text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 
 <text class="th" x="340" y="28" text-anchor="middle">ZCU104 block design, simplified</text>
 
-<line class="arr" x1="195" y1="87.5" x2="255" y2="87.5" marker-end="url(#arrow)"/>
-<line class="arr" x1="435" y1="87.5" x2="485" y2="87.5" marker-end="url(#arrow)"/>
-<line class="arr" x1="485" y1="152.5" x2="435" y2="152.5" marker-end="url(#arrow)"/>
-<line class="arr" x1="255" y1="152.5" x2="195" y2="152.5" marker-end="url(#arrow)"/>
-<line class="arr" x1="485" y1="220" x2="435" y2="220" marker-end="url(#arrow)"/>
-<line class="arr" x1="345" y1="250" x2="345" y2="260" marker-end="url(#arrow)"/>
-<line class="arr" x1="435" y1="287.5" x2="485" y2="287.5" marker-end="url(#arrow)"/>
+<!-- control path -->
+<line class="arr" x1="195" y1="79" x2="255" y2="79" marker-end="url(#arrow)"/>
+<line class="arr" x1="435" y1="79" x2="485" y2="79" marker-end="url(#arrow)"/>
+
+<!-- HP0 / MM2S: DMA reads PS memory, data moves PS -> DMA -->
+<line class="arr" x1="195" y1="132" x2="255" y2="132" marker-end="url(#arrow)"/>
+<line class="arr" x1="435" y1="132" x2="485" y2="132" marker-end="url(#arrow)"/>
+
+<!-- HP1 / S2MM: DMA writes PS memory, data moves DMA -> PS -->
+<line class="arr" x1="485" y1="182" x2="435" y2="182" marker-end="url(#arrow)"/>
+<line class="arr" x1="255" y1="182" x2="195" y2="182" marker-end="url(#arrow)"/>
+
+<line class="arr" x1="485" y1="238.5" x2="435" y2="238.5" marker-end="url(#arrow)"/>
+<line class="arr" x1="345" y1="266" x2="345" y2="274" marker-end="url(#arrow)"/>
+<line class="arr" x1="435" y1="295" x2="485" y2="295" marker-end="url(#arrow)"/>
 
 <g>
-<rect class="box" x="35" y="60" width="160" height="260" rx="4" fill="#e8eaed" stroke="#6b7280"/>
-<text class="th" x="115" y="184" text-anchor="middle">Zynq UltraScale+</text>
-<text class="ts" x="115" y="200" text-anchor="middle">MPSoC (PS)</text>
+<rect class="box" x="35" y="55" width="160" height="265" rx="4" fill="#e8eaed" stroke="#6b7280"/>
+<text class="th" x="115" y="181.5" text-anchor="middle">Zynq UltraScale+</text>
+<text class="ts" x="115" y="197.5" text-anchor="middle">MPSoC (PS)</text>
 </g>
 
 <g>
-<rect class="box" x="485" y="60" width="150" height="260" rx="4" fill="#fef3c7" stroke="#d97706"/>
-<text class="th" x="560" y="184" text-anchor="middle">AXI DMA</text>
-<text class="ts" x="560" y="200" text-anchor="middle">No scatter-gather</text>
+<rect class="box" x="485" y="55" width="150" height="265" rx="4" fill="#fef3c7" stroke="#d97706"/>
+<text class="th" x="560" y="181.5" text-anchor="middle">AXI DMA</text>
+<text class="ts" x="560" y="197.5" text-anchor="middle">No scatter-gather</text>
 </g>
 
 <g>
-<rect class="box" x="255" y="60" width="180" height="55" rx="4" fill="#dbeafe" stroke="#3b82f6"/>
-<text class="th" x="345" y="82" text-anchor="middle">AXI Interconnect</text>
-<text class="ts" x="345" y="98" text-anchor="middle">Discontinued IP</text>
+<rect class="box" x="255" y="55" width="180" height="48" rx="4" fill="#dbeafe" stroke="#3b82f6"/>
+<text class="th" x="345" y="73" text-anchor="middle">AXI Interconnect</text>
+<text class="ts" x="345" y="89" text-anchor="middle">Discontinued IP</text>
 </g>
 
 <g>
-<rect class="box" x="255" y="125" width="180" height="55" rx="4" fill="#dbeafe" stroke="#3b82f6"/>
-<text class="th" x="345" y="147" text-anchor="middle">AXI SmartConnect</text>
-<text class="ts" x="345" y="163" text-anchor="middle">&#215;2, HP0 / HP1</text>
+<rect class="box" x="255" y="111" width="180" height="42" rx="4" fill="#dbeafe" stroke="#3b82f6"/>
+<text class="th" x="345" y="126" text-anchor="middle">AXI SmartConnect</text>
+<text class="ts" x="345" y="142" text-anchor="middle">HP0, MM2S read</text>
 </g>
 
 <g>
-<rect class="box" x="255" y="190" width="180" height="60" rx="4" fill="#ede9fe" stroke="#8b5cf6"/>
-<text class="th" x="345" y="214" text-anchor="middle">mlp_classifier_0</text>
-<text class="ts" x="345" y="230" text-anchor="middle">Myproject HLS core</text>
+<rect class="box" x="255" y="161" width="180" height="42" rx="4" fill="#dbeafe" stroke="#3b82f6"/>
+<text class="th" x="345" y="176" text-anchor="middle">AXI SmartConnect</text>
+<text class="ts" x="345" y="192" text-anchor="middle">HP1, S2MM write</text>
 </g>
 
 <g>
-<rect class="box" x="255" y="260" width="180" height="55" rx="4" fill="#dbeafe" stroke="#3b82f6"/>
-<text class="th" x="345" y="282" text-anchor="middle">Width converter</text>
-<text class="ts" x="345" y="298" text-anchor="middle">80 to 128 bit</text>
+<rect class="box" x="255" y="211" width="180" height="55" rx="4" fill="#ede9fe" stroke="#8b5cf6"/>
+<text class="th" x="345" y="232.5" text-anchor="middle">mlp_classifier_0</text>
+<text class="ts" x="345" y="248.5" text-anchor="middle">Myproject HLS core</text>
 </g>
 
-<rect x="200" y="207" width="55" height="26" rx="4" fill="#f9fafb" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
-<text class="ts" x="227.5" y="223.5" text-anchor="middle">Const.</text>
+<g>
+<rect class="box" x="255" y="274" width="180" height="42" rx="4" fill="#dbeafe" stroke="#3b82f6"/>
+<text class="th" x="345" y="289" text-anchor="middle">Width converter</text>
+<text class="ts" x="345" y="305" text-anchor="middle">80 to 128 bit</text>
+</g>
+
+<rect x="200" y="226" width="55" height="26" rx="4" fill="#f9fafb" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+<text class="ts" x="227.5" y="242.5" text-anchor="middle">Const.</text>
 
 <rect x="60" y="340" width="10" height="10" rx="2" fill="#e8eaed" stroke="#6b7280"/>
 <text class="ts" x="76" y="349">Processing system</text>
